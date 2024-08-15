@@ -3,3 +3,4 @@ fileChangeLogs:
   - node_modules
   - .env
   - .next
+  - src/app/components/ProjectsSection.jsx

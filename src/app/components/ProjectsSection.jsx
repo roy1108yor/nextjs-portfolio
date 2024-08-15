@@ -63,6 +63,7 @@ const projectsData = [
 
 const ProjectsSection = () => {
   const [tag, setTag] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -70,8 +71,12 @@ const ProjectsSection = () => {
     setTag(newTag);
   };
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   const filteredProjects = projectsData.filter((project) =>
-    project.tag.includes(tag)
+    project.tag.includes(tag) && project.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const cardVariants = {
@@ -84,6 +89,13 @@ const ProjectsSection = () => {
       <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
         My Projects
       </h2>
+      <input 
+        type="text" 
+        placeholder="Search Projects" 
+        value={searchQuery}
+        onChange={handleSearch}
+        className="text-black mb-4"
+      />
       <div className="text-white flex flex-row justify-center items-center gap-2 py-6">
         <ProjectTag
           onClick={handleTagChange}

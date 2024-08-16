@@ -22,6 +22,15 @@ const navLinks = [
 
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [isBlackBackground, setIsBlackBackground] = useState(
+    document.body.classList.contains('black-background')
+  );
+
+  const toggleBackgroundColor = () => {
+    setIsBlackBackground((prevState) => !prevState);
+    document.body.classList.toggle('black-background', !isBlackBackground);
+    document.body.classList.toggle('white-background', isBlackBackground);
+  };
 
   return (
     <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-[#121212] bg-opacity-100">
@@ -58,6 +67,13 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
+        <button
+          id="toggle-background-color"
+          onClick={toggleBackgroundColor}
+          className="ml-4 px-3 py-2 border rounded border-slate-200 text-slate-200 hover:text-white hover:border-white"
+        >
+          Toggle Background
+        </button>
       </div>
       {navbarOpen ? <MenuOverlay links={navLinks} /> : null}
     </nav>

@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,9 +10,27 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const [backgroundColor, setBackgroundColor] = useState('white-background');
+
+  const toggleBackgroundColor = () => {
+    setBackgroundColor(prevColor => 
+      prevColor === 'white-background' ? 'black-background' : 'white-background'
+    );
+  };
+
+  useEffect(() => {
+    if (document.body.classList.contains('black-background')) {
+      setBackgroundColor('black-background');
+    } else {
+      setBackgroundColor('white-background');
+    }
+  }, []);
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} ${backgroundColor}`} id="root">
+        {children}
+      </body>
     </html>
-  )
+  );
 }
